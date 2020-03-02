@@ -1,0 +1,33 @@
+{
+  "name": "moody-app-news-api-cloud-fn",
+  "version": "1.0.0",
+  "description": "This is the News API cloud function for the Moody App.",
+  "main": "index.js",
+  "engines": {
+    "node": "8.x"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^3.5.1",
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "^3.3.0",
+    "node-fetch": "^2.6.0",
+    "prettier": "^1.19.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bnguyensn/moody-app-news-api-cloud-fn.git"
+  },
+  "author": "@bnguyensn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bnguyensn/moody-app-news-api-cloud-fn/issues"
+  },
+  "homepage": "https://github.com/bnguyensn/moody-app-news-api-cloud-fn#readme"
+}
