@@ -102,9 +102,9 @@ exports.moody = async (e, context) => {
       )
     );
 
-    console.log(promiseResults);
+    console.log(`count of promiseResults = ${promiseResults.count}`);
 
-    return promiseResults;
+    return true;
   } catch (err) {
     console.error(err);
     console.error(new Error(err.stack));
