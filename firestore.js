@@ -39,7 +39,9 @@ exports.addToFirestore = async (db, collectionName, { id, data }) => {
     // Inject creation timestamp
     data.createdAt = Firestore.Timestamp.now();
 
-    console.log(`addToFirestore: trying to add ${JSON.stringify(data)}`);
+    console.log(
+      `addToFirestore: trying to add article within topic ${data.topic} with title ${data.articleTitle}`
+    );
 
     if (!id) return db.collection(collectionName).add(data);
 

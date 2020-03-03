@@ -18,7 +18,7 @@ exports.moody = async (e, context) => {
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const FIRESTORE_COLLECTION_NAME = process.env.FIRESTORE_COLLECTION_NAME;
 
-  const now = new Date('2020-03-02T00:33:31.292Z');
+  const now = new Date(Date.now());
   const nowStr = utils.getDateStrFromDate(now);
 
   try {
@@ -57,10 +57,6 @@ exports.moody = async (e, context) => {
     );
 
     const topicArticles = topicData.map((topicD, topicIndex) => {
-      console.log(
-        `Checking received topic data for topic: ${topics[topicIndex]}`
-      );
-
       if (topicD.status === 'ok') {
         console.log(
           `Topic ${topics[topicIndex]} received well. Total result = ${topicD.totalResults} Creating articles...`
@@ -75,6 +71,8 @@ exports.moody = async (e, context) => {
           articleDescription: article.description,
         }));
       }
+
+      console.log(`Top ${topics[topicIndex]} wasn't received well.`);
 
       return null;
     });
@@ -92,8 +90,7 @@ exports.moody = async (e, context) => {
 
     console.log('Successfully initialized the Firestore database connection');
 
-    // return articles;
-    const promiseResults = await Promise.all(
+    await Promise.all(
       articles.map(article =>
         firestore.addToFirestore(db, FIRESTORE_COLLECTION_NAME, {
           id: undefined,
@@ -101,8 +98,6 @@ exports.moody = async (e, context) => {
         })
       )
     );
-
-    console.log(`count of promiseResults = ${promiseResults.length}`);
 
     return true;
   } catch (err) {
