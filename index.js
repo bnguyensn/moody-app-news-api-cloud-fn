@@ -18,7 +18,7 @@ exports.moody = async (e, context) => {
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const FIRESTORE_COLLECTION_NAME = process.env.FIRESTORE_COLLECTION_NAME;
 
-  const now = new Date(Date.now());
+  const now = new Date('2020-03-02T00:33:31.292Z');
   const nowStr = utils.getDateStrFromDate(now);
 
   try {
@@ -63,7 +63,7 @@ exports.moody = async (e, context) => {
 
       if (topicD.status === 'ok') {
         console.log(
-          `Topic ${topics[topicIndex]} received well. Creating articles...`
+          `Topic ${topics[topicIndex]} received well. Total result = ${topicD.totalResults} Creating articles...`
         );
 
         const articles = topicD.articles;
@@ -102,7 +102,7 @@ exports.moody = async (e, context) => {
       )
     );
 
-    console.log(`count of promiseResults = ${promiseResults.count}`);
+    console.log(`count of promiseResults = ${promiseResults.length}`);
 
     return true;
   } catch (err) {
