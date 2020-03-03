@@ -1,4 +1,4 @@
-# Moody App GCP Cloud Function
+# Moody App GCP Cloud Function - News API
 
 This is the Google Cloud Platform News API cloud function for Moody App.
 
