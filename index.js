@@ -57,7 +57,15 @@ exports.moody = async (e, context) => {
     );
 
     const topicArticles = topicData.map((topicD, topicIndex) => {
+      console.log(
+        `Checking received topic data for topic: ${topics[topicIndex]}`
+      );
+
       if (topicD.status === 'ok') {
+        console.log(
+          `Topic ${topics[topicIndex]} received well. Creating articles...`
+        );
+
         const articles = topicD.articles;
 
         return articles.map(article => ({
@@ -82,8 +90,10 @@ exports.moody = async (e, context) => {
 
     const db = firestore.initializeDb();
 
+    console.log('Successfully initialized the Firestore database connection');
+
     // return articles;
-    return Promise.all(
+    const promises = await Promise.all(
       articles.map(article =>
         firestore.addToFirestore(db, FIRESTORE_COLLECTION_NAME, {
           id: undefined,
@@ -91,8 +101,13 @@ exports.moody = async (e, context) => {
         })
       )
     );
+
+    console.dir(promises);
+
+    return promises;
   } catch (err) {
     console.error(err);
+    console.error(new Error(err.stack));
     throw err;
   }
 };
