@@ -80,7 +80,7 @@ exports.moody = async (e, context) => {
     });
 
     const articles = topicArticles
-      .filter(articleArr => !!articleArr)
+      .filter(topicArticlesArr => !!topicArticlesArr)
       .reduce((acc, cur) => {
         acc.push(...cur);
         return acc;
@@ -93,7 +93,7 @@ exports.moody = async (e, context) => {
     console.log('Successfully initialized the Firestore database connection');
 
     // return articles;
-    const promises = await Promise.all(
+    const promiseResults = await Promise.all(
       articles.map(article =>
         firestore.addToFirestore(db, FIRESTORE_COLLECTION_NAME, {
           id: undefined,
@@ -102,9 +102,9 @@ exports.moody = async (e, context) => {
       )
     );
 
-    console.dir(promises);
+    console.log(promiseResults);
 
-    return promises;
+    return promiseResults;
   } catch (err) {
     console.error(err);
     console.error(new Error(err.stack));
