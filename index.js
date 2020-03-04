@@ -5,7 +5,7 @@
 // https://cloud.google.com/functions/docs/monitoring/error-reporting
 
 const fetch = require('node-fetch');
-const firestore = require('./firestore');
+const app = require('./app');
 const utils = require('./utils');
 
 /**
@@ -86,13 +86,14 @@ exports.moody = async (e, context) => {
 
     // ========== 2. Store News API results into Firebase ========== //
 
-    const db = firestore.initializeDb();
+    const db = app.db;
 
+    await db.testConnection(db.db, FIRESTORE_COLLECTION_NAME);
     console.log('Successfully initialized the Firestore database connection');
 
     await Promise.all(
       articles.map(article =>
-        firestore.addToFirestore(db, FIRESTORE_COLLECTION_NAME, {
+        db.addToFirestore(db.db, FIRESTORE_COLLECTION_NAME, {
           id: undefined,
           data: article,
         })
